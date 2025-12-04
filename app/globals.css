@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+
+@layer components {
+	.body-section {
+		@apply max-w-5xl mx-auto w-full;
+	}
+}
+
+.body-container {
+	width: 100%;
+	margin: 0 auto;
+	@media (width >= 40rem /* 640px */) {
+		max-width: 40rem /* 640px */;
+	}
+	@media (width >= 48rem /* 768px */) {
+		max-width: 48rem /* 768px */;
+	}
+	@media (width >= 64rem /* 1024px */) {
+		max-width: 64rem /* 1024px */;
+	}
+	@media (width >= 80rem /* 1280px */) {
+		max-width: 80rem /* 1280px */;
+	}
+	@media (width >= 96rem /* 1536px */) {
+		max-width: 96rem /* 1536px */;
+	}
+	@media (width >= 120rem /* 1920px */) {
+		max-width: 80rem /* 1920px */;
+	}
+	@media (width >= 160rem /* 2560px */) {
+		max-width: 80rem /* 2560px */;
+	}
+	@media (width >= 240rem /* 3840px */) {
+		max-width: 100rem /* 3840px */;
+	}
+}
