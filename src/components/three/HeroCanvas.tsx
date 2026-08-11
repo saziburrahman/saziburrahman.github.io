@@ -1,4 +1,4 @@
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, MeshDistortMaterial } from "@react-three/drei";
 import { useMousePosition } from "@/hooks/useMousePosition";
@@ -20,17 +20,17 @@ function HeroGeometry() {
     // Smooth mouse follow
     meshRef.current.rotation.x = lerp(
       meshRef.current.rotation.x,
-      mouse.normalizedY * 0.3,
+      mouse.normalizedY * 0.25,
       delta * 0.8
     );
     meshRef.current.rotation.y = lerp(
       meshRef.current.rotation.y,
-      mouse.normalizedX * 0.3,
+      mouse.normalizedX * 0.25,
       delta * 0.8
     );
 
     // Auto rotation
-    meshRef.current.rotation.z += delta * 0.05;
+    meshRef.current.rotation.z += delta * 0.04;
 
     // Sync wireframe
     if (wireRef.current) {
@@ -38,37 +38,37 @@ function HeroGeometry() {
     }
   });
 
-  const detail = isMobile ? 3 : 4;
+  const detail = isMobile ? 2 : 3;
 
   return (
     <Float
-      speed={reducedMotion ? 0 : 1.5}
-      rotationIntensity={reducedMotion ? 0 : 0.3}
-      floatIntensity={reducedMotion ? 0 : 0.8}
+      speed={reducedMotion ? 0 : 1.2}
+      rotationIntensity={reducedMotion ? 0 : 0.25}
+      floatIntensity={reducedMotion ? 0 : 0.6}
     >
-      <group position={[isMobile ? 0 : 2.2, 0, 0]} scale={isMobile ? 1.3 : 1.7}>
-        {/* Main distorted mesh - vibrant electric purple/indigo */}
+      <group position={[isMobile ? 0 : 2.2, 0, 0]} scale={isMobile ? 1.2 : 1.6}>
+        {/* Main distorted mesh */}
         <mesh ref={meshRef}>
           <icosahedronGeometry args={[1, detail]} />
           <MeshDistortMaterial
             color="#7c3aed"
-            roughness={0.2}
-            metalness={0.7}
-            distort={isMobile || reducedMotion ? 0 : 0.35}
-            speed={reducedMotion ? 0 : 2}
+            roughness={0.25}
+            metalness={0.65}
+            distort={isMobile || reducedMotion ? 0 : 0.3}
+            speed={reducedMotion ? 0 : 1.8}
             transparent
             opacity={0.85}
           />
         </mesh>
 
-        {/* Wireframe overlay - electric cyan */}
+        {/* Wireframe overlay */}
         <mesh ref={wireRef}>
           <icosahedronGeometry args={[1.02, detail]} />
           <meshBasicMaterial
             color="#38bdf8"
             wireframe
             transparent
-            opacity={0.4}
+            opacity={0.35}
           />
         </mesh>
       </group>
@@ -80,7 +80,7 @@ function FloatingParticles() {
   const pointsRef = useRef<Points>(null);
   const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
-  const count = isMobile ? 60 : 160;
+  const count = isMobile ? 40 : 100;
 
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -94,8 +94,8 @@ function FloatingParticles() {
 
   useFrame((_, delta) => {
     if (!pointsRef.current || reducedMotion) return;
-    pointsRef.current.rotation.y += delta * 0.02;
-    pointsRef.current.rotation.x += delta * 0.01;
+    pointsRef.current.rotation.y += delta * 0.015;
+    pointsRef.current.rotation.x += delta * 0.008;
   });
 
   return (
@@ -107,10 +107,10 @@ function FloatingParticles() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.025}
+        size={0.02}
         color="#a78bfa"
         transparent
-        opacity={0.7}
+        opacity={0.6}
         sizeAttenuation
       />
     </points>
@@ -121,28 +121,49 @@ function SceneLighting() {
   return (
     <>
       <ambientLight intensity={0.5} />
-      <pointLight position={[3, 3, 4]} intensity={3} color="#8b5cf6" />
-      <pointLight position={[-4, -2, 3]} intensity={2} color="#38bdf8" />
-      <pointLight position={[0, 5, -3]} intensity={1} color="#ec4899" />
+      <pointLight position={[3, 3, 4]} intensity={2.5} color="#8b5cf6" />
+      <pointLight position={[-4, -2, 3]} intensity={1.8} color="#38bdf8" />
     </>
   );
 }
 
 export function HeroCanvas() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(true);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { rootMargin: "100px 0px 100px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <Canvas
-      camera={{ position: [0, 0, 5], fov: 45 }}
-      dpr={[1, 1.5]}
-      gl={{
-        antialias: true,
-        alpha: true,
-        powerPreference: "high-performance",
-      }}
-      style={{ background: "transparent" }}
-    >
-      <SceneLighting />
-      <HeroGeometry />
-      <FloatingParticles />
-    </Canvas>
+    <div ref={containerRef} className="w-full h-full">
+      {isInView && (
+        <Canvas
+          camera={{ position: [0, 0, 5], fov: 45 }}
+          dpr={[1, 1.25]}
+          gl={{
+            antialias: false,
+            alpha: true,
+            powerPreference: "high-performance",
+          }}
+          style={{ background: "transparent" }}
+        >
+          <SceneLighting />
+          <HeroGeometry />
+          <FloatingParticles />
+        </Canvas>
+      )}
+    </div>
   );
 }

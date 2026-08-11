@@ -7,83 +7,55 @@ interface LoadingScreenProps {
 }
 
 /**
- * Minimal loading screen with initials + progress bar.
- * Auto-dismisses after a short delay to not block content.
+ * Premium Loading Screen with Initials + Smooth Hardware-Accelerated Progress Bar.
+ * Restored for beautiful aesthetic entrance without main-thread re-render thrashes.
  */
 export function LoadingScreen({ onComplete }: LoadingScreenProps) {
-  const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    // Simulate loading progress
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        // Fast start, slow finish
-        const increment = prev < 70 ? 8 : prev < 90 ? 3 : 1;
-        return Math.min(prev + increment, 100);
-      });
-    }, 40);
+    // Fast aesthetic loader timing (~650ms total)
+    const timer = setTimeout(() => {
+      setVisible(false);
+      setTimeout(onComplete, 400); // Trigger completion after exit animation
+    }, 650);
 
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (progress >= 100) {
-      const timeout = setTimeout(() => {
-        setVisible(false);
-        setTimeout(onComplete, 600); // Wait for exit animation
-      }, 300);
-      return () => clearTimeout(timeout);
-    }
-  }, [progress, onComplete]);
+    return () => clearTimeout(timer);
+  }, [onComplete]);
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center"
+          className="fixed inset-0 z-[100] bg-[#090d16] flex flex-col items-center justify-center"
           exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Initials */}
+          {/* Mesh Glow Background */}
+          <div className="absolute w-64 h-64 bg-indigo-600/20 rounded-full blur-[100px] pointer-events-none" />
+
+          {/* Initials Logo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-8"
+            transition={{ duration: 0.4 }}
+            className="mb-6 relative z-10"
           >
-            <span className="font-display text-4xl font-bold text-gradient">
+            <span className="font-display text-4xl font-extrabold text-white">
               {portfolioData.personal.initials}
+              <span className="text-indigo-400">.</span>
             </span>
           </motion.div>
 
-          {/* Progress bar */}
-          <motion.div
-            initial={{ opacity: 0, width: 0 }}
-            animate={{ opacity: 1, width: "12rem" }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="h-[2px] bg-border rounded-full overflow-hidden"
-          >
+          {/* Progress bar using pure Framer Motion hardware-accelerated transition */}
+          <div className="w-48 h-[3px] bg-slate-800 rounded-full overflow-hidden relative z-10 border border-white/10">
             <motion.div
-              className="h-full bg-gradient-to-r from-accent to-accent-secondary rounded-full"
-              style={{ width: `${progress}%` }}
-              transition={{ duration: 0.1 }}
+              className="h-full bg-gradient-to-r from-indigo-500 via-sky-400 to-purple-500 rounded-full"
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
             />
-          </motion.div>
-
-          {/* Percentage */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="mt-4 text-xs text-foreground-subtle font-mono"
-          >
-            {progress}%
-          </motion.p>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

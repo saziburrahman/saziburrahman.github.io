@@ -9,4 +9,22 @@ export default defineConfig({
       '@': import.meta.dirname + '/src',
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/three') || id.includes('@react-three')) {
+            return 'three-vendor';
+          }
+          if (id.includes('node_modules/framer-motion')) {
+            return 'framer-motion';
+          }
+          if (id.includes('node_modules/lucide-react')) {
+            return 'icons';
+          }
+        },
+      },
+    },
+  },
 })

@@ -14,7 +14,7 @@ const HeroCanvas = lazy(() =>
 
 function WebGLFallback() {
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <div
         className="absolute top-1/4 right-1/4 w-[450px] h-[450px] rounded-full opacity-35 blur-[120px]"
         style={{
@@ -35,10 +35,25 @@ function WebGLFallback() {
 
 export function HeroSection() {
   const { personal } = portfolioData;
-  const [webGLSupported, setWebGLSupported] = useState(true);
+  const [webGLSupported, setWebGLSupported] = useState(false);
+  const [canLoad3D, setCanLoad3D] = useState(false);
 
   useEffect(() => {
-    setWebGLSupported(isWebGLAvailable());
+    // Check WebGL support
+    if (isWebGLAvailable()) {
+      setWebGLSupported(true);
+
+      // Defer heavy 3D canvas initialization until after initial paint & main thread idle
+      const timer = setTimeout(() => {
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(() => setCanLoad3D(true));
+        } else {
+          setCanLoad3D(true);
+        }
+      }, 400);
+
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const scrollToProjects = () => {
@@ -57,7 +72,7 @@ export function HeroSection() {
     >
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
-        {webGLSupported ? (
+        {webGLSupported && canLoad3D ? (
           <Suspense fallback={<WebGLFallback />}>
             <HeroCanvas />
           </Suspense>
@@ -145,7 +160,7 @@ export function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 0.6 }}
+        transition={{ delay: 1, duration: 0.6 }}
       >
         <span className="text-[10px] font-semibold text-slate-400 tracking-[0.2em] uppercase">
           Scroll to explore

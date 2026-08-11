@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface MousePosition {
   x: number;
@@ -9,7 +9,7 @@ interface MousePosition {
 
 /**
  * Tracks mouse position with both pixel and normalized (-1 to 1) coordinates.
- * Normalized values are useful for 3D scene interaction.
+ * Throttled using requestAnimationFrame to prevent main thread blocking during fast mouse moves.
  */
 export function useMousePosition() {
   const [mousePosition, setMousePosition] = useState<MousePosition>({
@@ -19,18 +19,30 @@ export function useMousePosition() {
     normalizedY: 0,
   });
 
+  const rafRef = useRef<number | null>(null);
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY,
-        normalizedX: (e.clientX / window.innerWidth) * 2 - 1,
-        normalizedY: -(e.clientY / window.innerHeight) * 2 + 1,
+      if (rafRef.current !== null) return;
+
+      rafRef.current = requestAnimationFrame(() => {
+        setMousePosition({
+          x: e.clientX,
+          y: e.clientY,
+          normalizedX: (e.clientX / window.innerWidth) * 2 - 1,
+          normalizedY: -(e.clientY / window.innerHeight) * 2 + 1,
+        });
+        rafRef.current = null;
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, []);
 
   return mousePosition;
