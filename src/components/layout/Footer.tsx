@@ -14,7 +14,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10 bg-[#070a12] text-slate-300" role="contentinfo">
+    <footer className="border-t border-white/10 bg-[#070a12] text-slate-300 pb-20 lg:pb-0" role="contentinfo">
       <div className="section-container py-12 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

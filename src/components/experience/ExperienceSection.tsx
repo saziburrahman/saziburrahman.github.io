@@ -21,7 +21,7 @@ interface ExperienceCardProps {
   index: number;
 }
 
-function ThreeDExperienceCard({ item, index }: ExperienceCardProps) {
+function ThreeDExperienceCard({ item, index: _index }: ExperienceCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 

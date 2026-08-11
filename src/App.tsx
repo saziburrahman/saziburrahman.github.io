@@ -26,7 +26,7 @@ export default function App() {
       <CustomCursor />
       <Navigation />
 
-      <main>
+      <main className="pb-16 lg:pb-0">
         <HeroSection />
         <div className="section-divider" />
         <AboutSection />
