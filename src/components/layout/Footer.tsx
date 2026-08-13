@@ -1,3 +1,5 @@
+"use client";
+
 import { Globe, Link, MessageCircle, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import portfolioData from "@/data/portfolio";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useCallback } from "react";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
@@ -12,12 +14,14 @@ import { EducationSection } from "@/components/education/EducationSection";
 import { ServicesSection } from "@/components/services/ServicesSection";
 import { ContactSection } from "@/components/contact/ContactSection";
 
-export default function App() {
+export default function Home() {
   const [loading, setLoading] = useState(true);
 
   const handleLoadingComplete = useCallback(() => {
     setLoading(false);
-    document.body.classList.remove("loading");
+    if (typeof document !== "undefined") {
+      document.body.classList.remove("loading");
+    }
   }, []);
 
   return (

@@ -1,3 +1,5 @@
+"use client";
+
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import portfolioData from "@/data/portfolio";

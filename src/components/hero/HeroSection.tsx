@@ -1,3 +1,5 @@
+"use client";
+
 import { heroItem, heroStagger } from "@/components/animations/variants";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import portfolioData from "@/data/portfolio";

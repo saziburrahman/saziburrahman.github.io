@@ -1,3 +1,5 @@
+"use client";
+
 import { fadeUp, staggerContainer } from "@/components/animations/variants";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import portfolioData from "@/data/portfolio";
