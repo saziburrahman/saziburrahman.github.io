@@ -1,20 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import portfolioData, { type Project } from "@/data/portfolio";
 import { staggerContainer, fadeUp } from "@/components/animations/variants";
 import {
-  ExternalLink,
-  Globe,
   X,
   Layers,
   Sparkles,
-  ChevronRight,
   CheckCircle2,
+  ArrowUpRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type CategoryFilter = "All" | "E-Commerce" | "Travel & Location Services" | "Agri-Tech & Community";
+type CategoryFilter = "All" | "E-Commerce" | "Travel" | "Admin Dashboard" | "Other";
 
 export function ProjectsSection() {
   const { projects } = portfolioData;
@@ -24,8 +22,9 @@ export function ProjectsSection() {
   const categories: CategoryFilter[] = [
     "All",
     "E-Commerce",
-    "Travel & Location Services",
-    "Agri-Tech & Community",
+    "Travel",
+    "Admin Dashboard",
+    "Other",
   ];
 
   const filteredProjects =
@@ -33,10 +32,23 @@ export function ProjectsSection() {
       ? projects
       : projects.filter((p) => {
           if (activeFilter === "E-Commerce") return p.category.includes("E-Commerce");
-          if (activeFilter === "Travel & Location Services") return p.category.includes("Travel");
-          if (activeFilter === "Agri-Tech & Community") return p.category.includes("Agri") || p.category.includes("Community");
+          if (activeFilter === "Travel") return p.category.includes("Travel");
+          if (activeFilter === "Admin Dashboard") return p.category.includes("Admin");
+          if (activeFilter === "Other") return p.category.includes("Corporate") || p.category.includes("Communication") || p.category.includes("Social");
           return true;
         });
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedProject]);
 
   return (
     <section id="projects" className="relative section-spacing bg-gradient-to-b from-[#090d16] via-[#0c1222] to-[#090d16] overflow-hidden" aria-label="Featured Projects">
@@ -87,29 +99,42 @@ export function ProjectsSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4 }}
-                className="group relative rounded-2xl border border-white/10 bg-slate-900/70 backdrop-blur-xl hover:border-indigo-500/50 hover:bg-slate-900/95 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/20 flex flex-col overflow-hidden"
+                onClick={() => setSelectedProject(project)}
+                className="group relative rounded-2xl border border-white/10 bg-slate-900/70 backdrop-blur-xl hover:border-indigo-500/50 hover:bg-slate-900/95 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/20 flex flex-col overflow-hidden cursor-pointer"
               >
                 {/* Image / Header Container */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-slate-950 p-6 flex flex-col justify-between">
-                  <div className="flex items-center justify-between z-10">
-                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-900/90 text-indigo-300 border border-indigo-500/30 backdrop-blur-md">
-                      {project.category}
-                    </span>
-                    <span className="text-xs font-bold text-slate-400 bg-slate-900/80 px-2.5 py-1 rounded-md border border-white/10">
-                      {project.year}
-                    </span>
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
+                  {/* Project Screenshot */}
+                  {project.image && (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  )}
+
+                  <div className="relative z-10 p-6 flex flex-col justify-between h-full">
+                    <div className="flex items-center justify-between">
+                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-900/90 text-indigo-300 border border-indigo-500/30 backdrop-blur-md">
+                        {project.category}
+                      </span>
+                      <span className="text-xs font-bold text-slate-400 bg-slate-900/80 px-2.5 py-1 rounded-md border border-white/10 backdrop-blur-md">
+                        {project.year}
+                      </span>
+                    </div>
+
+                    <div className="mt-auto">
+                      <span className="text-xs font-bold text-sky-400 uppercase tracking-widest block mb-1 drop-shadow-lg">
+                        {project.subtitle}
+                      </span>
+                      <h3 className="heading-subsection text-white font-extrabold text-2xl group-hover:text-indigo-400 transition-colors duration-300 drop-shadow-lg">
+                        {project.title}
+                      </h3>
+                    </div>
                   </div>
 
-                  <div className="z-10 mt-auto">
-                    <span className="text-xs font-bold text-sky-400 uppercase tracking-widest block mb-1">
-                      {project.subtitle}
-                    </span>
-                    <h3 className="heading-subsection text-white font-extrabold text-2xl group-hover:text-indigo-400 transition-colors duration-300">
-                      {project.title}
-                    </h3>
-                  </div>
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/50 opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-900/30 opacity-90 group-hover:opacity-80 transition-opacity duration-500" />
                 </div>
 
                 {/* Card Body */}
@@ -137,30 +162,12 @@ export function ProjectsSection() {
                     </div>
                   </div>
 
-                  {/* Actions */}
+                  {/* View Details Indicator */}
                   <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                    <button
-                      onClick={() => setSelectedProject(project)}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-400 hover:text-white transition-colors duration-200 cursor-pointer bg-transparent border-none p-0"
-                    >
-                      View Case Study
-                      <ChevronRight size={14} />
-                    </button>
-
-                    <div className="flex items-center gap-3">
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`GitHub code for ${project.title}`}
-                          className="text-slate-400 hover:text-white transition-colors text-xs font-semibold flex items-center gap-1"
-                        >
-                          <Globe size={14} />
-                          Code
-                        </a>
-                      )}
-                    </div>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-400 group-hover:text-white transition-colors duration-200">
+                      View Details
+                      <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
                   </div>
                 </div>
               </motion.div>
@@ -169,41 +176,62 @@ export function ProjectsSection() {
         </motion.div>
       </div>
 
-      {/* Detailed Case Study Modal */}
+      {/* Project Detail Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 overflow-y-auto">
+          <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto">
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 bg-slate-950/80 backdrop-blur-xl"
+              className="fixed inset-0 bg-slate-950/85 backdrop-blur-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
             />
 
-            {/* Modal Box */}
+            {/* Sticky Close Button — always visible */}
+            <motion.button
+              onClick={() => setSelectedProject(null)}
+              className="fixed top-4 right-4 z-[60] p-3 rounded-full bg-slate-900 text-white hover:bg-indigo-600 transition-colors border border-white/20 shadow-2xl shadow-black/50"
+              aria-label="Close modal"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ delay: 0.1 }}
+            >
+              <X size={20} />
+            </motion.button>
+
+            {/* Modal Content */}
             <motion.div
-              className="relative w-full max-w-3xl rounded-2xl border border-white/15 bg-slate-900 text-white shadow-2xl overflow-hidden z-10 my-8"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-3xl rounded-2xl border border-white/15 bg-slate-900 text-white shadow-2xl overflow-hidden z-10 my-6 mx-4"
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              exit={{ opacity: 0, scale: 0.9, y: 30 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-slate-950/80 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border border-white/10"
-                aria-label="Close modal"
-              >
-                <X size={18} />
-              </button>
+              {/* Project Image — Full Width */}
+              {selectedProject.image && (
+                <div className="relative w-full aspect-[16/9] overflow-hidden bg-slate-950">
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover object-top"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+                </div>
+              )}
 
               {/* Modal Header */}
-              <div className="p-6 md:p-8 bg-gradient-to-r from-indigo-950/80 to-slate-900 border-b border-white/10">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 mb-3">
-                  {selectedProject.category} • {selectedProject.year}
-                </span>
+              <div className="p-6 md:p-8 pb-0 md:pb-0">
+                <div className="flex flex-wrap items-center gap-2 mb-3">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    {selectedProject.category}
+                  </span>
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-300 border border-white/10">
+                    {selectedProject.year}
+                  </span>
+                </div>
                 <h3 className="text-2xl md:text-3xl font-display font-extrabold text-white">
                   {selectedProject.title}
                 </h3>
@@ -271,32 +299,6 @@ export function ProjectsSection() {
                       </span>
                     ))}
                   </div>
-                </div>
-
-                {/* Modal Footer Actions */}
-                <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-end gap-3">
-                  {selectedProject.githubUrl && (
-                    <a
-                      href={selectedProject.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 bg-white/5 text-white text-xs font-bold hover:bg-white/15 transition-all"
-                    >
-                      <Globe size={16} />
-                      View Code Base
-                    </a>
-                  )}
-                  {selectedProject.liveUrl && selectedProject.liveUrl !== "#" && (
-                    <a
-                      href={selectedProject.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-sky-500 text-white text-xs font-bold hover:shadow-lg hover:shadow-indigo-500/30 transition-all"
-                    >
-                      <ExternalLink size={16} />
-                      Launch Live Platform
-                    </a>
-                  )}
                 </div>
               </div>
             </motion.div>
