@@ -99,7 +99,6 @@ export function Navigation() {
             <div className="flex items-center gap-2 sm:gap-3">
               <a
                 href="/SaziburRahman.pdf"
-                download="MD_Sazibur_Rahman_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-full border border-white/15 bg-white/5 text-white hover:bg-white/15 hover:border-indigo-400 shadow-sm transition-all duration-300"

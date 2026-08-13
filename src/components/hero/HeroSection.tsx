@@ -1,15 +1,15 @@
-import { Suspense, lazy, useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { heroStagger, heroItem } from "@/components/animations/variants";
+import { heroItem, heroStagger } from "@/components/animations/variants";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import portfolioData from "@/data/portfolio";
-import { ArrowDown, ArrowRight, Download } from "lucide-react";
 import { isWebGLAvailable } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { ArrowRight, Download } from "lucide-react";
+import { Suspense, lazy, useEffect, useState } from "react";
 
 const HeroCanvas = lazy(() =>
   import("@/components/three/HeroCanvas").then((m) => ({
     default: m.HeroCanvas,
-  }))
+  })),
 );
 
 function WebGLFallback() {
@@ -89,7 +89,7 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 section-container w-full">
         <motion.div
-          className="max-w-3xl pt-24 md:pt-0"
+          className="max-w-xl lg:max-w-2xl pt-24 md:pt-0 p-6 md:p-0 rounded-3xl bg-[#090d16]/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border border-white/10 md:border-none shadow-2xl md:shadow-none"
           variants={heroStagger}
           initial="hidden"
           animate="visible"
@@ -97,7 +97,7 @@ export function HeroSection() {
           {/* Label */}
           <motion.p
             variants={heroItem}
-            className="text-label mb-6 font-semibold tracking-widest text-indigo-400"
+            className="text-label mb-6 font-semibold tracking-widest text-indigo-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
           >
             {personal.heroLabel}
           </motion.p>
@@ -105,7 +105,7 @@ export function HeroSection() {
           {/* Headline */}
           <motion.h1
             variants={heroItem}
-            className="heading-hero text-white mb-6 font-extrabold"
+            className="heading-hero text-white mb-6 font-extrabold drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]"
           >
             {personal.heroHeadline.split(" ").map((word, i) =>
               word === "applications." ? (
@@ -114,14 +114,14 @@ export function HeroSection() {
                 </span>
               ) : (
                 <span key={i}>{word} </span>
-              )
+              ),
             )}
           </motion.h1>
 
           {/* Subtext */}
           <motion.p
             variants={heroItem}
-            className="text-body max-w-xl mb-10 text-lg text-slate-300 font-medium leading-relaxed"
+            className="text-body max-w-xl mb-10 text-lg text-slate-200 font-medium leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]"
           >
             {personal.heroSubtext}
           </motion.p>
@@ -139,7 +139,6 @@ export function HeroSection() {
             {/* Resume Download CTA */}
             <a
               href="/SaziburRahman.pdf"
-              download="MD_Sazibur_Rahman_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 px-6 py-3.5 text-sm font-semibold rounded-full border border-white/15 bg-white/5 text-white hover:bg-white/15 hover:border-indigo-400 backdrop-blur-md shadow-lg transition-all duration-300 hover:scale-[1.02]"
@@ -154,24 +153,6 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
-      >
-        <span className="text-[10px] font-semibold text-slate-400 tracking-[0.2em] uppercase">
-          Scroll to explore
-        </span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ArrowDown size={14} className="text-indigo-400" />
-        </motion.div>
-      </motion.div>
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#090d16] to-transparent z-[2] pointer-events-none" />

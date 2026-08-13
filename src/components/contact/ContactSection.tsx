@@ -52,7 +52,6 @@ export function ContactSection() {
 
               <a
                 href="/SaziburRahman.pdf"
-                download="MD_Sazibur_Rahman_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold rounded-full border border-white/15 bg-white/5 text-white hover:border-indigo-400 hover:bg-white/10 transition-all duration-300"

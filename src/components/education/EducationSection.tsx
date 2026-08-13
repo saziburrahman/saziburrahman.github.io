@@ -27,7 +27,7 @@ interface EducationCardProps {
   index: number;
 }
 
-function ThreeDEducationCard({ item, index }: EducationCardProps) {
+function ThreeDEducationCard({ item }: Omit<EducationCardProps, "index">) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
@@ -68,11 +68,6 @@ function ThreeDEducationCard({ item, index }: EducationCardProps) {
       >
         {/* Top Glow bar on hover */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-        {/* Floating 3D background watermark number */}
-        {/* <span className="font-display text-7xl font-extrabold text-slate-800/40 absolute -bottom-4 right-4 pointer-events-none select-none group-hover:text-sky-500/20 transition-colors duration-500">
-          0{index + 1}
-        </span> */}
 
         {/* Header Badges */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
@@ -172,7 +167,7 @@ export function EducationSection() {
             viewport={{ once: true, margin: "-60px" }}
           >
             {education.map((item, index) => (
-              <ThreeDEducationCard key={index} item={item} index={index} />
+              <ThreeDEducationCard key={index} item={item} />
             ))}
           </motion.div>
         </div>
