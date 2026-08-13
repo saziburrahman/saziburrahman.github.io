@@ -91,6 +91,7 @@ export interface Education {
   institution: string;
   period: string;
   grade: string;
+  coursework?: string[];
 }
 
 export interface PortfolioData {
@@ -145,7 +146,7 @@ const portfolioData: PortfolioData = {
   stats: [
     { value: 3, suffix: "+", label: "Years Experience" },
     { value: 8, suffix: "+", label: "Projects Delivered" },
-    { value: 12, suffix: "+", label: "Core Technologies" },
+    { value: 25, suffix: "+", label: "Core Technologies" },
     { value: 100, suffix: "%", label: "Code Quality & Performance" },
   ],
 
@@ -162,13 +163,29 @@ const portfolioData: PortfolioData = {
         { name: "TypeScript" },
         { name: "JavaScript (ES6+)" },
         { name: "Tailwind CSS" },
+        { name: "Ant Design" },
+        { name: "Framer Motion" },
+        { name: "React Query" },
         { name: "Zustand" },
         { name: "Redux" },
-        { name: "HTML5 / CSS3" },
-        { name: "Ant Design" },
-        { name: "Material UI" },
-        { name: "Framer Motion" },
+        { name: "Vite" },
+        { name: "React Router" },
+        { name: "React Slick" },
+      ],
+    },
+    {
+      category: "Forms, Editors & Libraries",
+      description: "Form handling, rich text editing, validation, and utility libraries.",
+      skills: [
         { name: "Formik" },
+        { name: "Yup" },
+        { name: "React Hook Form" },
+        { name: "Tiptap Editor" },
+        { name: "Axios" },
+        { name: "Day.js" },
+        { name: "React Cookie" },
+        { name: "Chart.js" },
+        { name: "Google Maps API" },
       ],
     },
     {
@@ -179,20 +196,21 @@ const portfolioData: PortfolioData = {
         { name: "Express.js" },
         { name: "RESTful APIs" },
         { name: "JWT Auth" },
-        { name: "Joi Validation" },
+        { name: "ACL" },
         { name: "MongoDB" },
         { name: "MySQL" },
       ],
     },
     {
-      category: "DevOps & Tools",
-      description: "Ecosystem powering deployment, version control, and testing.",
+      category: "DevOps, Testing & Tools",
+      description: "Deployment, version control, testing, and code quality tools.",
       skills: [
         { name: "Git" },
         { name: "GitHub" },
         { name: "Bitbucket" },
         { name: "Docker" },
-        { name: "Swagger" },
+        { name: "Playwright" },
+        { name: "ESLint / Oxlint" },
         { name: "Postman" },
         { name: "Vercel" },
       ],
@@ -201,10 +219,11 @@ const portfolioData: PortfolioData = {
       category: "Core Specializations",
       description: "Advanced engineering practices for production apps.",
       skills: [
-        { name: "Performance Optimization" },
         { name: "SSR (Server-Side Rendering)" },
+        { name: "i18n / Next Intl" },
         { name: "RTL (Arabic) Support" },
-        { name: "RBAC Security" },
+        { name: "Performance Optimization" },
+        { name: "ACL / RBAC Security" },
         { name: "Payment Gateway Integration" },
         { name: "Lazy Loading" },
       ],
@@ -456,12 +475,36 @@ const portfolioData: PortfolioData = {
       institution: "IUBAT — International University of Business Agriculture and Technology",
       period: "05/2018 — 08/2022",
       grade: "CGPA: 3.54 / 4.0",
+      coursework: [
+        "Data Structures & Algorithms",
+        "Database Systems (SQL & MongoDB)",
+        "Software Engineering & OOP",
+        "Web Technologies & APIs",
+      ],
     },
     {
       degree: "Diploma in Computer Technology",
       institution: "Kushtia Polytechnic Institute, Bangladesh",
       period: "01/2014 — 01/2018",
       grade: "CGPA: 2.85 / 4.0",
+      coursework: [
+        "Computer Fundamentals",
+        "Data Structures & Programming",
+        "Web Development Basics",
+        "Database Management Systems",
+      ],
+    },
+    {
+      degree: "Secondary School Certificate (SSC) — Science",
+      institution: "Armed Police Battalion High School and College, Uttara, Dhaka",
+      period: "2013",
+      grade: "GPA: 4.63 / 5.0",
+      coursework: [
+        "Physics & Chemistry",
+        "Higher Mathematics",
+        "Biology",
+        "Information & Communication Technology (ICT)",
+      ],
     },
   ],
 

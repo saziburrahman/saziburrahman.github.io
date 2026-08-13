@@ -2,13 +2,14 @@ import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import portfolioData, { type SkillCategory } from "@/data/portfolio";
 import { staggerContainer, fadeUp } from "@/components/animations/variants";
-import { Layout, Cpu, Database, Wrench } from "lucide-react";
+import { Layout, Cpu, Database, Wrench, FileText } from "lucide-react";
 
-const categoryIcons = [Layout, Cpu, Database, Wrench];
+const categoryIcons = [Layout, FileText, Database, Wrench, Cpu];
 const categoryGradients = [
   "from-indigo-500/20 to-purple-500/20 border-indigo-500/30 text-indigo-400",
-  "from-cyan-500/20 to-blue-500/20 border-cyan-500/30 text-cyan-400",
+  "from-amber-500/20 to-orange-500/20 border-amber-500/30 text-amber-400",
   "from-emerald-500/20 to-teal-500/20 border-emerald-500/30 text-emerald-400",
+  "from-cyan-500/20 to-blue-500/20 border-cyan-500/30 text-cyan-400",
   "from-pink-500/20 to-rose-500/20 border-pink-500/30 text-pink-400",
 ];
 

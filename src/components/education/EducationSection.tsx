@@ -41,20 +41,7 @@ function ThreeDEducationCard({ item, index }: EducationCardProps) {
 
   const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
 
-  const coursework =
-    index === 0
-      ? [
-          "Data Structures & Algorithms",
-          "Database Systems (SQL & MongoDB)",
-          "Software Engineering & OOP",
-          "Web Technologies & APIs",
-        ]
-      : [
-          "Computer Fundamentals",
-          "Data Structures",
-          "Web Development",
-          "Database Management Systems",
-        ];
+  const coursework = item.coursework || [];
 
   return (
     <motion.div
