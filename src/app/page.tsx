@@ -1,10 +1,6 @@
-"use client";
-
-import { useState, useCallback } from "react";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
-import { LoadingScreen } from "@/components/ui/LoadingScreen";
-import { CustomCursor } from "@/components/ui/CustomCursor";
+import { ClientProviders } from "@/components/layout/ClientProviders";
 import { HeroSection } from "@/components/hero/HeroSection";
 import { AboutSection } from "@/components/about/AboutSection";
 import { SkillsSection } from "@/components/skills/SkillsSection";
@@ -15,22 +11,11 @@ import { ServicesSection } from "@/components/services/ServicesSection";
 import { ContactSection } from "@/components/contact/ContactSection";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
-
-  const handleLoadingComplete = useCallback(() => {
-    setLoading(false);
-    if (typeof document !== "undefined") {
-      document.body.classList.remove("loading");
-    }
-  }, []);
-
   return (
-    <>
-      {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
-      <CustomCursor />
+    <ClientProviders>
       <Navigation />
 
-      <main className="pb-16 lg:pb-0">
+      <main id="main-content" className="pb-16 lg:pb-0">
         <HeroSection />
         <div className="section-divider" />
         <AboutSection />
@@ -49,6 +34,6 @@ export default function Home() {
       </main>
 
       <Footer />
-    </>
+    </ClientProviders>
   );
 }

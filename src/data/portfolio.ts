@@ -135,8 +135,8 @@ const portfolioData: PortfolioData = {
   // SOCIAL LINKS
   // =====================
   social: [
-    { label: "GitHub", url: "https://github.com/rahmansazib", icon: "github" },
-    { label: "LinkedIn", url: "https://linkedin.com/in/rahmansazib", icon: "linkedin" },
+    { label: "GitHub", url: "https://github.com/saziburrahman", icon: "github" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/saziburrahman/", icon: "linkedin" },
     { label: "Email", url: "mailto:rahmansazib72@gmail.com", icon: "mail" },
   ],
 
