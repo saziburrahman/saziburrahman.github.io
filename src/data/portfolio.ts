@@ -551,7 +551,7 @@ const portfolioData: PortfolioData = {
       "Official Portfolio of MD Sazibur Rahman, Software Engineer (Frontend) specializing in React, Next.js, TypeScript, MERN Stack, and web performance optimization in Dhaka, Bangladesh.",
     keywords:
       "MD Sazibur Rahman, Sazibur Rahman, Software Engineer, Frontend Engineer, React Developer, Next.js Developer, MERN Stack Developer, Web Developer Dhaka, Bangladesh Developer, Tailwind CSS, TypeScript Engineer",
-    ogImage: "/favicon.svg",
+    ogImage: "/sazibur_rahman._portfolio.png",
     canonicalUrl: "https://github.com/rahmansazib",
   },
 };

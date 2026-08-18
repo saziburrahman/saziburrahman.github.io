@@ -130,7 +130,7 @@ function DevScene() {
                     03
                   </span>
                   <span className="text-slate-400 italic">
-                    // Senior Frontend & MERN Stack Engineering
+                    // Frontend & MERN Stack Engineering
                   </span>
                 </div>
                 <div className="flex gap-5">

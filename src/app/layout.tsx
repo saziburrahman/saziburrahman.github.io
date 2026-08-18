@@ -1,6 +1,6 @@
-import type { Metadata, Viewport } from "next";
-import "@/styles/index.css";
 import portfolioData from "@/data/portfolio";
+import "@/styles/index.css";
+import type { Metadata, Viewport } from "next";
 
 export const viewport: Viewport = {
   themeColor: "#0b0f19",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: `%s | ${portfolioData.personal.name}`,
   },
   description:
-    "Hire MD Sazibur Rahman — Senior Frontend & MERN Stack Software Engineer with 3+ years of experience building scalable, high-performance web applications using React, Next.js, TypeScript, Zustand, Node.js, and Tailwind CSS.",
+    "Hire MD Sazibur Rahman — Frontend & MERN Stack Software Engineer with 3+ years of experience building scalable, high-performance web applications using React, Next.js, TypeScript, Zustand, Node.js, and Tailwind CSS.",
   keywords: [
     "MD Sazibur Rahman",
     "Hire Frontend Engineer",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: `${portfolioData.personal.name} — Senior Frontend & MERN Specialist`,
+    title: `${portfolioData.personal.name} — Frontend & MERN Specialist`,
     description:
       "Specializing in React 19, Next.js 15, TypeScript, Zustand/Redux, and MERN full-stack engineering. View projects, experience, and contact for hiring.",
     url: SITE_URL,
@@ -54,10 +54,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/projects/EWN.png",
+        url: "/sazibur_rahman._portfolio.png",
         width: 1200,
         height: 630,
-        alt: `${portfolioData.personal.name} — Senior Frontend Software Engineer`,
+        alt: `${portfolioData.personal.name} — Frontend Software Engineer`,
       },
     ],
   },
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     description:
       "Specializing in React, Next.js, TypeScript, and MERN full-stack development. Available for high-impact engineering roles and client projects.",
     creator: "@sazibur",
-    images: ["/projects/EWN.png"],
+    images: ["/sazibur_rahman._portfolio.png"],
   },
   robots: {
     index: true,
@@ -101,11 +101,11 @@ const jsonLdPerson = {
   name: portfolioData.personal.name,
   givenName: "MD Sazibur",
   familyName: "Rahman",
-  jobTitle: "Senior Frontend & MERN Stack Software Engineer",
+  jobTitle: "Frontend & MERN Stack Software Engineer",
   description:
     "Frontend Software Engineer specializing in React.js, Next.js, TypeScript, Zustand/Redux, Node.js, and MERN full-stack web application development.",
   url: SITE_URL,
-  image: `${SITE_URL}/projects/EWN.png`,
+  image: `${SITE_URL}/sazibur_rahman._portfolio.png`,
   email: `mailto:${portfolioData.personal.email}`,
   sameAs: portfolioData.social.map((s) => s.url),
   address: {
@@ -185,7 +185,8 @@ const jsonLdService = {
         itemOffered: {
           "@type": "Service",
           name: "Frontend Software Engineering",
-          description: "Building responsive, fast, and accessible web applications using React.js, Next.js, and TypeScript.",
+          description:
+            "Building responsive, fast, and accessible web applications using React.js, Next.js, and TypeScript.",
         },
       },
       {
@@ -193,7 +194,8 @@ const jsonLdService = {
         itemOffered: {
           "@type": "Service",
           name: "MERN Stack Application Development",
-          description: "Full-stack web application development with MongoDB, Express.js, React.js, and Node.js.",
+          description:
+            "Full-stack web application development with MongoDB, Express.js, React.js, and Node.js.",
         },
       },
       {
@@ -201,7 +203,8 @@ const jsonLdService = {
         itemOffered: {
           "@type": "Service",
           name: "Performance & SEO Optimization",
-          description: "Optimizing Web Vitals, SSR/SSG rendering, Lighthouse scores, and search engine visibility.",
+          description:
+            "Optimizing Web Vitals, SSR/SSG rendering, Lighthouse scores, and search engine visibility.",
         },
       },
     ],
@@ -224,7 +227,8 @@ const jsonLdProjects = {
   "@type": "ItemList",
   "@id": `${SITE_URL}/#projects-list`,
   name: "Featured Engineering Projects & Case Studies",
-  description: "Portfolio of software engineering projects and full-stack web applications by MD Sazibur Rahman.",
+  description:
+    "Portfolio of software engineering projects and full-stack web applications by MD Sazibur Rahman.",
   itemListElement: portfolioData.projects.map((project, index) => ({
     "@type": "ListItem",
     position: index + 1,
@@ -274,7 +278,9 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProfilePage) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdProfilePage),
+          }}
         />
         <script
           type="application/ld+json"
