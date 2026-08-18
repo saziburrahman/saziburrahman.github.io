@@ -91,7 +91,7 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 section-container w-full">
         <motion.div
-          className="max-w-xl lg:max-w-2xl pt-24 md:pt-0 p-6 md:p-0 rounded-3xl bg-[#090d16]/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border border-white/10 md:border-none shadow-2xl md:shadow-none"
+          className="max-w-xl lg:max-w-2xl pt-24 md:pt-10 p-6 md:p-0 rounded-3xl bg-[#090d16]/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border border-white/10 md:border-none shadow-2xl md:shadow-none"
           variants={heroStagger}
           initial="hidden"
           animate="visible"

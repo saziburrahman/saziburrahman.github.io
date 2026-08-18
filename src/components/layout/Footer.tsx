@@ -1,8 +1,8 @@
 "use client";
 
-import { Globe, Link, MessageCircle, Mail } from "lucide-react";
-import { motion } from "framer-motion";
 import portfolioData from "@/data/portfolio";
+import { motion } from "framer-motion";
+import { Globe, Link, Mail, MessageCircle } from "lucide-react";
 
 const iconMap = {
   github: Globe,
@@ -16,8 +16,11 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10 bg-[#070a12] text-slate-300 pb-20 lg:pb-0" role="contentinfo">
-      <div className="section-container py-12 md:py-16">
+    <footer
+      className="border-t border-white/10 bg-[#070a12] text-slate-300 pb-20 lg:pb-0"
+      role="contentinfo"
+    >
+      <div className="section-container py-4 md:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -31,13 +34,17 @@ export function Footer() {
                 {personal.name}
                 <span className="text-indigo-400">.</span>
               </p>
-              <p className="text-sm font-medium text-slate-400 mt-1">{personal.role}</p>
+              <p className="text-sm font-medium text-slate-400 mt-1">
+                {personal.role}
+              </p>
             </div>
 
-            {/* Center — tagline */}
-            <p className="text-sm font-medium text-slate-400 text-center">
-              Designed & engineered with precision.
-            </p>
+            {/* Copyright */}
+            <div className="text-center">
+              <p className="text-xs font-medium text-slate-400">
+                © {year} {personal.name}. All rights reserved.
+              </p>
+            </div>
 
             {/* Right — socials */}
             <div className="flex items-center gap-4">
@@ -57,13 +64,6 @@ export function Footer() {
                 );
               })}
             </div>
-          </div>
-
-          {/* Copyright */}
-          <div className="mt-10 pt-8 border-t border-white/10 text-center">
-            <p className="text-xs font-medium text-slate-400">
-              © {year} {personal.name}. All rights reserved.
-            </p>
           </div>
         </motion.div>
       </div>

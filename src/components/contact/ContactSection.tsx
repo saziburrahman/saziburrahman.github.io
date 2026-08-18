@@ -1,9 +1,16 @@
 "use client";
 
-import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import portfolioData from "@/data/portfolio";
-import { Globe, Link, MessageCircle, Mail, ArrowUpRight, Download } from "lucide-react";
+import {
+  ArrowUpRight,
+  Download,
+  Globe,
+  Link,
+  Mail,
+  MessageCircle,
+} from "lucide-react";
 
 const iconMap = {
   github: Globe,
@@ -16,16 +23,22 @@ export function ContactSection() {
   const { personal, social } = portfolioData;
 
   return (
-    <section id="contact" className="relative section-spacing bg-gradient-to-b from-[#090d16] via-[#0d1428] to-[#090d16] overflow-hidden" aria-label="Contact">
+    <section
+      id="contact"
+      className="relative section-spacing bg-gradient-to-b from-[#090d16] via-[#0d1428] to-[#090d16] overflow-hidden"
+      aria-label="Contact"
+    >
       {/* Background Mesh Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-indigo-600/20 via-purple-600/20 to-sky-500/20 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="relative z-10 section-container">
-        <div className="max-w-3xl mx-auto text-center p-8 md:p-14 rounded-3xl border border-white/15 bg-slate-900/80 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
+        <div className="max-w-7xl mx-auto text-center p-8 md:p-14 rounded-3xl border border-white/15 bg-slate-900/80 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-sky-400 to-purple-500" />
 
           <RevealOnScroll>
-            <p className="text-label mb-6 font-semibold tracking-widest text-indigo-400">Get In Touch</p>
+            <p className="text-label mb-6 font-semibold tracking-widest text-indigo-400">
+              Get In Touch
+            </p>
           </RevealOnScroll>
 
           <RevealOnScroll delay={0.05}>
@@ -37,7 +50,8 @@ export function ContactSection() {
 
           <RevealOnScroll delay={0.1}>
             <p className="text-body text-lg mb-10 max-w-xl mx-auto font-medium text-slate-300">
-              Let's collaborate to build high-performance web applications that deliver real business impact.
+              Let's collaborate to build high-performance web applications that
+              deliver real business impact.
             </p>
           </RevealOnScroll>
 

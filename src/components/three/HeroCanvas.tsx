@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef, useMemo, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Html } from "@react-three/drei";
+import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useMousePosition } from "@/hooks/useMousePosition";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useIsMobile } from "@/hooks/useMediaQuery";
 import { lerp } from "@/lib/utils";
+import { Float, Html } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Group, Points } from "three";
 
 // 3D Large Holographic Code Terminal Scene
@@ -23,12 +23,12 @@ function DevScene() {
     groupRef.current.rotation.x = lerp(
       groupRef.current.rotation.x,
       mouse.normalizedY * 0.12,
-      delta * 1.2
+      delta * 1.2,
     );
     groupRef.current.rotation.y = lerp(
       groupRef.current.rotation.y,
       mouse.normalizedX * 0.18,
-      delta * 1.2
+      delta * 1.2,
     );
   });
 
@@ -87,44 +87,69 @@ function DevScene() {
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     Available for Hire
                   </span>
-                  <span className="font-semibold text-slate-400">TypeScript 5.0</span>
+                  <span className="font-semibold text-slate-400">Frontend</span>
                 </div>
               </div>
 
               {/* Large, Sharp Code Snippet */}
               <div className="space-y-3 text-[15px] leading-relaxed flex-1 overflow-hidden font-mono font-medium">
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">01</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    01
+                  </span>
                   <span>
                     <span className="text-purple-400 font-bold">import</span>{" "}
-                    <span className="text-sky-300 font-semibold">{"{ React, useState }"}</span>{" "}
+                    <span className="text-sky-300 font-semibold">
+                      {"{ React, useState }"}
+                    </span>{" "}
                     <span className="text-purple-400 font-bold">from</span>{" "}
-                    <span className="text-emerald-300 font-semibold">'react'</span>;
+                    <span className="text-emerald-300 font-semibold">
+                      'react'
+                    </span>
+                    ;
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">02</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    02
+                  </span>
                   <span>
                     <span className="text-purple-400 font-bold">import</span>{" "}
-                    <span className="text-sky-300 font-semibold">{"{ NextJS, Tailwind }"}</span>{" "}
+                    <span className="text-sky-300 font-semibold">
+                      {"{ NextJS, Tailwind }"}
+                    </span>{" "}
                     <span className="text-purple-400 font-bold">from</span>{" "}
-                    <span className="text-emerald-300 font-semibold">'@stack/core'</span>;
+                    <span className="text-emerald-300 font-semibold">
+                      '@stack/core'
+                    </span>
+                    ;
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">03</span>
-                  <span className="text-slate-400 italic">// Senior Frontend & MERN Stack Engineering</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    03
+                  </span>
+                  <span className="text-slate-400 italic">
+                    // Senior Frontend & MERN Stack Engineering
+                  </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">04</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    04
+                  </span>
                   <span>
                     <span className="text-blue-400 font-bold">const</span>{" "}
-                    <span className="text-yellow-300 font-bold text-base">Developer</span> = () {"=>"}{" "}
+                    <span className="text-yellow-300 font-bold text-base">
+                      Developer
+                    </span>{" "}
+                    = () {"=>"}{" "}
                     <span className="text-indigo-300 font-bold">{"{"}</span>
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">05</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    05
+                  </span>
                   <span className="pl-5">
                     <span className="text-blue-400 font-bold">const</span>{" "}
                     <span className="text-sky-300 font-bold">engineer</span> ={" "}
@@ -132,44 +157,89 @@ function DevScene() {
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">06</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    06
+                  </span>
                   <span className="pl-10 text-sky-200">
-                    name: <span className="text-emerald-300 font-bold">'MD Sazibur Rahman'</span>,
+                    name:{" "}
+                    <span className="text-emerald-300 font-bold">
+                      'MD Sazibur Rahman'
+                    </span>
+                    ,
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">07</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    07
+                  </span>
                   <span className="pl-10 text-sky-200">
-                    role: <span className="text-emerald-300 font-bold">'Frontend Lead & MERN Specialist'</span>,
+                    role:{" "}
+                    <span className="text-emerald-300 font-bold">
+                      'Frontend Lead & MERN Specialist'
+                    </span>
+                    ,
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">08</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    08
+                  </span>
                   <span className="pl-10 text-sky-200">
-                    stack: [<span className="text-amber-300 font-semibold">'React 19'</span>, <span className="text-amber-300 font-semibold">'Next.js 15'</span>, <span className="text-amber-300 font-semibold">'TypeScript'</span>, <span className="text-amber-300 font-semibold">'Zustand'</span>],
+                    stack: [
+                    <span className="text-amber-300 font-semibold">
+                      'React'
+                    </span>
+                    ,{" "}
+                    <span className="text-amber-300 font-semibold">
+                      'Next.js'
+                    </span>
+                    ,{" "}
+                    <span className="text-amber-300 font-semibold">
+                      'TypeScript'
+                    </span>
+                    ,{" "}
+                    <span className="text-amber-300 font-semibold">
+                      'Zustand'
+                    </span>
+                    ],
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">09</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    09
+                  </span>
                   <span className="pl-10 text-sky-200">
-                    experience: <span className="text-purple-300 font-bold">'3+ Years Delivering Production Apps'</span>,
+                    experience:{" "}
+                    <span className="text-purple-300 font-bold">
+                      '3+ Years Delivering Production Apps'
+                    </span>
+                    ,
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">10</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    10
+                  </span>
                   <span className="pl-5">
                     <span className="text-indigo-300 font-bold">{"}"}</span>;
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">11</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    11
+                  </span>
                   <span className="pl-5">
                     <span className="text-purple-400 font-bold">return</span> (
-                    <span className="text-sky-400 font-extrabold text-base">{"<ScalablePerformantWebApps />"}</span>);
+                    <span className="text-sky-400 font-extrabold text-base">
+                      {"<ScalablePerformantWebApps />"}
+                    </span>
+                    );
                   </span>
                 </div>
                 <div className="flex gap-5">
-                  <span className="text-slate-600 select-none font-bold">12</span>
+                  <span className="text-slate-600 select-none font-bold">
+                    12
+                  </span>
                   <span>
                     <span className="text-indigo-300 font-bold">{"}"}</span>;
                   </span>
@@ -180,7 +250,9 @@ function DevScene() {
               <div className="pt-3.5 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-sans">
                 <span className="flex items-center gap-2 text-slate-300">
                   <span className="w-2.5 h-2.5 rounded-full bg-sky-400 animate-ping" />
-                  <span className="font-mono">DevServer Active — Ready to Collaborate</span>
+                  <span className="font-mono">
+                    DevServer Active — Ready to Collaborate
+                  </span>
                 </span>
                 <span className="text-indigo-400 font-bold bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/30">
                   Build Status: 100% Passed
@@ -259,10 +331,7 @@ function FloatingParticles() {
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
         size={0.02}
@@ -298,7 +367,7 @@ export function HeroCanvas() {
       ([entry]) => {
         setIsInView(entry.isIntersecting);
       },
-      { rootMargin: "100px 0px 100px 0px" }
+      { rootMargin: "100px 0px 100px 0px" },
     );
 
     observer.observe(el);
