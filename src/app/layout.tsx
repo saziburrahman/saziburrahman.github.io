@@ -208,6 +208,39 @@ const jsonLdService = {
   },
 };
 
+const jsonLdProfilePage = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${SITE_URL}/#profilepage`,
+  url: SITE_URL,
+  name: `${portfolioData.personal.name} — Software Engineer Portfolio`,
+  mainEntity: {
+    "@id": `${SITE_URL}/#person`,
+  },
+};
+
+const jsonLdProjects = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${SITE_URL}/#projects-list`,
+  name: "Featured Engineering Projects & Case Studies",
+  description: "Portfolio of software engineering projects and full-stack web applications by MD Sazibur Rahman.",
+  itemListElement: portfolioData.projects.map((project, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "SoftwareApplication",
+      name: project.title,
+      description: project.description,
+      applicationCategory: project.category,
+      operatingSystem: "Web",
+      author: {
+        "@id": `${SITE_URL}/#person`,
+      },
+    },
+  })),
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -238,6 +271,14 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProfilePage) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProjects) }}
         />
       </head>
       <body className="antialiased bg-[#0b0f19] text-[#f8fafc] font-sans selection:bg-indigo-600 selection:text-white">
