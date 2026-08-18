@@ -1,0 +1,13 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+User-Agent: Googlebot
+Allow: /
+
+User-Agent: Bingbot
+Allow: /
+
+Host: https://saziburrahman.github.io
+Sitemap: https://saziburrahman.github.io/sitemap.xml
