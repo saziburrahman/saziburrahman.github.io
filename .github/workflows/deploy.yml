@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -34,16 +34,22 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build with Next.js
         run: npm run build
 
-      - name: Upload artifact
+      - name: Deploy to gh-pages branch (Fallback)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+
+      - name: Upload artifact for GitHub Actions Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (Actions)
         id: deployment
         uses: actions/deploy-pages@v4
