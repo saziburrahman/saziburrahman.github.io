@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/sazibur_rahman._portfolio.png",
+        url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
         alt: `${portfolioData.personal.name} — Frontend Software Engineer`,
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     description:
       "Specializing in React, Next.js, TypeScript, and MERN full-stack development. Available for high-impact engineering roles and client projects.",
     creator: "@sazibur",
-    images: ["/sazibur_rahman._portfolio.png"],
+    images: [`${SITE_URL}/og-image.png`],
   },
   robots: {
     index: true,
